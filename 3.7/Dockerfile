@@ -1,0 +1,6 @@
+FROM python:3.7.0
+
+MAINTAINER Jon Atkinson <jon@jonatkinson.co.uk>
+
+# Install Poetry
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
