@@ -12,7 +12,8 @@ The repository provides Python Docker images with `poetry` (preview) preinstalle
 * [3.4](https://github.com/mathieu-lemay/python-poetry-preview/blob/master/3.4/Dockerfile)
 * [3.5](https://github.com/mathieu-lemay/python-poetry-preview/blob/master/3.5/Dockerfile)
 * [3.6](https://github.com/mathieu-lemay/python-poetry-preview/blob/master/3.6/Dockerfile)
-* [3.7, latest](https://github.com/mathieu-lemay/python-poetry-preview/blob/master/3.7/Dockerfile)
+* [3.7](https://github.com/mathieu-lemay/python-poetry-preview/blob/master/3.7/Dockerfile)
+* [3.8, latest](https://github.com/mathieu-lemay/python-poetry-preview/blob/master/3.8/Dockerfile)
 
 ## Thanks
 
