@@ -9,40 +9,49 @@ error() { printf "\\e[35m[ERROR]\\e[0m %s\\n" "$*" >&2 ; exit 1 ; }
 
 build() {
     for version in "${VERSIONS[@]}"; do
-        docker build -t "acidrain/python-poetry-preview:${version}" -f "${version}/Dockerfile" .
-        docker build -t "acidrain/python-poetry-preview:${version}-alpine" -f "${version}/alpine/Dockerfile" .
+        docker build -t "acidrain/python-poetry:${version}" -f "${version}/Dockerfile" .
+        docker build -t "acidrain/python-poetry:${version}-slim" -f "${version}/slim/Dockerfile" .
+        docker build -t "acidrain/python-poetry:${version}-alpine" -f "${version}/alpine/Dockerfile" .
     done
 
-    docker tag "acidrain/python-poetry-preview:${LATEST}" "acidrain/python-poetry-preview:latest"
+    docker tag "acidrain/python-poetry:${LATEST}" "acidrain/python-poetry:latest"
 }
 
 push() {
     for version in "${VERSIONS[@]}"; do
-        docker push "acidrain/python-poetry-preview:${version}"
-        docker push "acidrain/python-poetry-preview:${version}-alpine"
+        docker push "acidrain/python-poetry:${version}"
+        docker push "acidrain/python-poetry:${version}-slim"
+        docker push "acidrain/python-poetry:${version}-alpine"
     done
 
-    docker push "acidrain/python-poetry-preview:latest"
+    docker push "acidrain/python-poetry:latest"
 }
 
 update() {
     for version in "${VERSIONS[@]}"; do
+        [ -d "${version}/slim" ] || mkdir "${version}/slim"
         [ -d "${version}/alpine" ] || mkdir "${version}/alpine"
 
         cp Dockerfile.template "${version}/Dockerfile"
         sed -i "s/__VERSION__/${version}/" "${version}/Dockerfile"
 
+        cp Dockerfile.slim.template "${version}/slim/Dockerfile"
+        sed -i "s/__VERSION__/${version}/" "${version}/slim/Dockerfile"
+
         cp Dockerfile.alpine.template "${version}/alpine/Dockerfile"
         sed -i "s/__VERSION__/${version}/" "${version}/alpine/Dockerfile"
-
     done
 }
 
 clean() {
     set +e
     for version in "${VERSIONS[@]}"; do
-        docker rmi "acidrain/python-poetry-preview:${version}"
-        docker rmi "acidrain/python-poetry-preview:${version}-alpine"
+        docker rmi "acidrain/python-poetry:${version}"
+        docker rmi "acidrain/python-poetry:${version}-slim"
+        docker rmi "acidrain/python-poetry:${version}-alpine"
+        docker rmi "python:${version}"
+        docker rmi "python:${version}-slim"
+        docker rmi "python:${version}-alpine"
     done
     set -e
 }

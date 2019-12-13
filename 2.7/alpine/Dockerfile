@@ -2,11 +2,8 @@ FROM python:2.7-alpine
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
-# Install Poetry
 RUN apk add --no-cache --virtual .deps curl && \
-    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o get-poetry.py && \
-    python get-poetry.py --preview && \
-    rm get-poetry.py && \
+    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python && \
     apk del --no-cache .deps
 
 ENV PATH="/root/.poetry/bin:$PATH"
