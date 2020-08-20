@@ -45,6 +45,8 @@ update() {
 
 clean() {
     set +e
+    docker rmi "acidrain/python-poetry"
+
     for version in "${VERSIONS[@]}"; do
         docker rmi "acidrain/python-poetry:${version}"
         docker rmi "acidrain/python-poetry:${version}-slim"
