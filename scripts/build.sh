@@ -2,7 +2,7 @@
 
 [ $# -ne 1 ] && error "Usage: $0 (build|push|update|clean)"
 
-VERSIONS=("2.7" "3.4" "3.5" "3.6" "3.7" "3.8")
+VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8")
 LATEST="3.8"
 
 error() { printf "\\e[35m[ERROR]\\e[0m %s\\n" "$*" >&2 ; exit 1 ; }
