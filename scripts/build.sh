@@ -2,8 +2,8 @@
 
 [ $# -ne 1 ] && error "Usage: $0 (build|push|update|clean)"
 
-VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8")
-LATEST="3.8"
+VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8" "3.9")
+LATEST="3.9"
 
 error() { printf "\\e[35m[ERROR]\\e[0m %s\\n" "$*" >&2 ; exit 1 ; }
 
@@ -29,8 +29,8 @@ push() {
 
 update() {
     for version in "${VERSIONS[@]}"; do
-        [ -d "${version}/slim" ] || mkdir "${version}/slim"
-        [ -d "${version}/alpine" ] || mkdir "${version}/alpine"
+        [ -d "${version}/slim" ] || mkdir -p "${version}/slim"
+        [ -d "${version}/alpine" ] || mkdir -p "${version}/alpine"
 
         cp Dockerfile.template "${version}/Dockerfile"
         sed -i "s/__VERSION__/${version}/" "${version}/Dockerfile"
