@@ -2,6 +2,9 @@ FROM python:3.5
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+ENV POETRY_VERSION 1.1.2
+
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py \
+    | python - --version "${POETRY_VERSION}"
 
 ENV PATH="/root/.poetry/bin:$PATH"

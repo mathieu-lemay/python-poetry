@@ -28,19 +28,20 @@ push() {
 }
 
 update() {
+    [[ -z "${POETRY_VERSION:-}" ]] && error "POETRY_VERSION not set"
+
     for version in "${VERSIONS[@]}"; do
         [ -d "${version}/slim" ] || mkdir -p "${version}/slim"
         [ -d "${version}/alpine" ] || mkdir -p "${version}/alpine"
 
         cp Dockerfile.template "${version}/Dockerfile"
-        sed -i "s/__VERSION__/${version}/" "${version}/Dockerfile"
-
         cp Dockerfile.slim.template "${version}/slim/Dockerfile"
-        sed -i "s/__VERSION__/${version}/" "${version}/slim/Dockerfile"
-
         cp Dockerfile.alpine.template "${version}/alpine/Dockerfile"
-        sed -i "s/__VERSION__/${version}/" "${version}/alpine/Dockerfile"
+
+        find "${version}" -name Dockerfile -print0 | xargs -0 sed -i "s/__PYTHON_VERSION__/${version}/"
     done
+
+    find -name Dockerfile -print0 | xargs -0 sed -i "s/__POETRY_VERSION__/${POETRY_VERSION}/"
 }
 
 clean() {
