@@ -13,7 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the Docker image
+        env:
+          DOCKER_REGISTRY_USERNAME: "acidrain"
+          DOCKER_REGISTRY_TOKEN: ${{ secrets.DOCKER_REGISTRY_TOKEN }}
         run: |
           make
-          docker login -u acidrain -p "${DOCKER_REGISTRY_TOKEN}"
+          docker login -u "${DOCKER_REGISTRY_USERNAME}" -p "${DOCKER_REGISTRY_TOKEN}"
           make push
