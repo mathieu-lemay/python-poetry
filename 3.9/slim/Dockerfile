@@ -2,6 +2,8 @@ FROM python:3.9-slim
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
+ENV POETRY_VERSION 1.1.8
+
 RUN apt-get update \
     && savedAptMark="$(apt-mark showmanual)" \
     && apt-get install -y --no-install-recommends curl git \

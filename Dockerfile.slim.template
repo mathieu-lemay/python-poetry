@@ -2,6 +2,8 @@ FROM python:__PYTHON_VERSION__-slim
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
+ENV POETRY_VERSION __POETRY_VERSION__
+
 RUN apt-get update \
     && savedAptMark="$(apt-mark showmanual)" \
     && apt-get install -y --no-install-recommends curl git \
