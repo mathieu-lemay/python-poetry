@@ -2,7 +2,7 @@ FROM python:3.6-alpine
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
-ENV POETRY_VERSION 1.1.8
+ENV POETRY_VERSION 1.1.9
 
 RUN set -eu; \
     apk add --no-cache --virtual .deps curl; \
