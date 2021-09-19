@@ -4,6 +4,7 @@ set -eu
 
 VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8" "3.9")
 LATEST="3.9"
+POETRY_VERSION="1.1.9"
 
 error() { printf "\\e[35m[ERROR]\\e[0m %s\\n" "$*" >&2 ; exit 1 ; }
 
@@ -14,6 +15,10 @@ build() {
         docker build -t "acidrain/python-poetry:${version}" -f "${version}/Dockerfile" .
         docker build -t "acidrain/python-poetry:${version}-slim" -f "${version}/slim/Dockerfile" .
         docker build -t "acidrain/python-poetry:${version}-alpine" -f "${version}/alpine/Dockerfile" .
+
+        docker tag "acidrain/python-poetry:${version}" "acidrain/python-poetry:${version}-${POETRY_VERSION}"
+        docker tag "acidrain/python-poetry:${version}-slim" "acidrain/python-poetry:${version}-slim-${POETRY_VERSION}"
+        docker tag "acidrain/python-poetry:${version}-alpine" "acidrain/python-poetry:${version}-alpine-${POETRY_VERSION}"
     done
 
     docker tag "acidrain/python-poetry:${LATEST}" "acidrain/python-poetry:latest"
@@ -22,8 +27,11 @@ build() {
 push() {
     for version in "${VERSIONS[@]}"; do
         docker push "acidrain/python-poetry:${version}"
+        docker push "acidrain/python-poetry:${version}-${POETRY_VERSION}"
         docker push "acidrain/python-poetry:${version}-slim"
+        docker push "acidrain/python-poetry:${version}-slim-${POETRY_VERSION}"
         docker push "acidrain/python-poetry:${version}-alpine"
+        docker push "acidrain/python-poetry:${version}-alpine-${POETRY_VERSION}"
     done
 
     docker push "acidrain/python-poetry:latest"
@@ -52,8 +60,11 @@ clean() {
 
     for version in "${VERSIONS[@]}"; do
         docker rmi "acidrain/python-poetry:${version}"
+        docker rmi "acidrain/python-poetry:${version}-${POETRY_VERSION}"
         docker rmi "acidrain/python-poetry:${version}-slim"
+        docker rmi "acidrain/python-poetry:${version}-slim-${POETRY_VERSION}"
         docker rmi "acidrain/python-poetry:${version}-alpine"
+        docker rmi "acidrain/python-poetry:${version}-alpine-${POETRY_VERSION}"
         docker rmi "python:${version}"
         docker rmi "python:${version}-slim"
         docker rmi "python:${version}-alpine"
