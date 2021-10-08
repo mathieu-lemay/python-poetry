@@ -7,15 +7,15 @@ ENV POETRY_VERSION 1.1.11
 RUN set -eu; \
     apt-get update; \
     savedAptMark="$(apt-mark showmanual)"; \
-    apt-get install -y --no-install-recommends curl git; \
+    apt-get install -y --no-install-recommends curl git gcc libffi-dev libc6-dev; \
     \
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py \
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py \
         | python - --version "${POETRY_VERSION}"; \
     \
     apt-mark auto '.*' > /dev/null; \
     [ -z "${savedAptMark}" ] || apt-mark manual ${savedAptMark}; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*; \
-    find /root/.poetry -not -user 0 -exec chown 0:0 '{}' \;;
+    find "/root/.local/share/pypoetry" -not -user 0 -exec chown 0:0 '{}' \;;
 
-ENV PATH="/root/.poetry/bin:$PATH"
+ENV PATH="/root/.local/bin:$PATH"
