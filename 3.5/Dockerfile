@@ -2,7 +2,7 @@ FROM python:3.5
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
-ENV POETRY_VERSION 1.1.11
+ENV POETRY_VERSION 1.1.12
 
 RUN set -eu; \
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py \
