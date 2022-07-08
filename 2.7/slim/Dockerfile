@@ -2,7 +2,7 @@ FROM python:2.7-slim
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
-ENV POETRY_VERSION 1.1.13
+ENV POETRY_VERSION 1.1.14
 
 RUN set -eu; \
     apt-get update; \

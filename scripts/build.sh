@@ -4,7 +4,7 @@ set -eu
 
 VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8" "3.9" "3.10")
 LATEST="3.10"
-POETRY_VERSION="1.1.13"
+POETRY_VERSION="1.1.14"
 
 build_options=("--platform" "linux/amd64,linux/arm64" "$@")
 
