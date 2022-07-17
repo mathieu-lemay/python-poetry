@@ -10,6 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        python_version:
+          - "2.7"
+          - "3.5"
+          - "3.6"
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,8 +41,8 @@ jobs:
 
       - name: Build the images
         if: github.ref_name != 'master'
-        run: ./scripts/build.sh
+        run: ./scripts/build.sh "${{ matrix.python_version }}"
 
       - name: Build and push the images
         if: github.ref_name == 'master'
-        run: ./scripts/build.sh --push
+        run: ./scripts/build.sh "${{ matrix.python_version }}" --push

@@ -2,20 +2,22 @@
 
 set -eu
 
-VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8" "3.9" "3.10")
+VERSION="${1:?}"
 LATEST="3.10"
 POETRY_VERSION="1.1.14"
 
+shift
+
 build_options=("--platform" "linux/amd64,linux/arm64" "$@")
 
-for version in "${VERSIONS[@]}"; do
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${version}" -f "${version}/Dockerfile" .
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${version}-slim" -f "${version}/slim/Dockerfile" .
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${version}-alpine" -f "${version}/alpine/Dockerfile" .
+docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}" -f "${VERSION}/Dockerfile" .
+docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-slim" -f "${VERSION}/slim/Dockerfile" .
+docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-alpine" -f "${VERSION}/alpine/Dockerfile" .
 
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${version}-${POETRY_VERSION}" -f "${version}/Dockerfile" .
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${version}-slim-${POETRY_VERSION}" -f "${version}/slim/Dockerfile" .
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${version}-alpine-${POETRY_VERSION}" -f "${version}/alpine/Dockerfile" .
-done
+docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-${POETRY_VERSION}" -f "${VERSION}/Dockerfile" .
+docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-slim-${POETRY_VERSION}" -f "${VERSION}/slim/Dockerfile" .
+docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-alpine-${POETRY_VERSION}" -f "${VERSION}/alpine/Dockerfile" .
 
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:latest" -f "${LATEST}/Dockerfile" .
+if [[ "${VERSION}" == "${LATEST}" ]]; then
+    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:latest" -f "${LATEST}/Dockerfile" .
+fi
