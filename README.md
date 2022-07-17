@@ -12,7 +12,9 @@ The repository provides Python Docker images with `poetry` preinstalled. My moti
 * [3.5](https://github.com/mathieu-lemay/python-poetry/blob/master/3.5/Dockerfile)
 * [3.6](https://github.com/mathieu-lemay/python-poetry/blob/master/3.6/Dockerfile)
 * [3.7](https://github.com/mathieu-lemay/python-poetry/blob/master/3.7/Dockerfile)
-* [3.8, latest](https://github.com/mathieu-lemay/python-poetry/blob/master/3.8/Dockerfile)
+* [3.8](https://github.com/mathieu-lemay/python-poetry/blob/master/3.8/Dockerfile)
+* [3.9](https://github.com/mathieu-lemay/python-poetry/blob/master/3.9/Dockerfile)
+* [3.10, latest](https://github.com/mathieu-lemay/python-poetry/blob/master/3.10/Dockerfile)
 
 ## Thanks
 
