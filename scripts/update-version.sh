@@ -2,7 +2,7 @@
 
 set -eu
 
-VERSIONS=("2.7" "3.5" "3.6" "3.7" "3.8" "3.9" "3.10")
+VERSIONS=("3.7" "3.8" "3.9" "3.10")
 error() { printf "\\e[35m[ERROR]\\e[0m %s\\n" "$*" >&2 ; exit 1 ; }
 
 poetry_version="${1:?poetry version not specified}"

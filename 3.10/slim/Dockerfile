@@ -2,14 +2,14 @@ FROM python:3.10-slim
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
-ENV POETRY_VERSION 1.1.15
+ENV POETRY_VERSION 1.2.0
 
 RUN set -eu; \
     apt-get update; \
     savedAptMark="$(apt-mark showmanual)"; \
     apt-get install -y --no-install-recommends curl git gcc libffi-dev libc6-dev; \
     \
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py \
+    curl -sSL https://install.python-poetry.org \
         | python - --version "${POETRY_VERSION}"; \
     \
     apt-mark auto '.*' > /dev/null; \
