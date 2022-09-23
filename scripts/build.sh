@@ -4,7 +4,7 @@ set -eu
 
 VERSION="${1:?}"
 LATEST="3.10"
-POETRY_VERSION="1.2.0"
+POETRY_VERSION="1.2.1"
 
 shift
 
