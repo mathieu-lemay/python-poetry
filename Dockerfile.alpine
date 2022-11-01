@@ -1,13 +1,16 @@
-ARG PY_VERSION
-ARG POETRY_VERSION
+ARG PYTHON_VERSION
 
-FROM python:${PY_VERSION}-alpine
+FROM python:${PYTHON_VERSION}-alpine
 
 LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
 
+ARG POETRY_VERSION
 ENV POETRY_VERSION ${POETRY_VERSION}
 
-RUN pip install pipx
-RUN pipx install poetry==${POETRY_VERSION}
+RUN set -eu; \
+    apk add --no-cache --virtual .deps curl gcc musl-dev libffi-dev; \
+    curl -sSL https://install.python-poetry.org \
+        | python - --version "${POETRY_VERSION}"; \
+    apk del --no-cache .deps;
 
 ENV PATH="/root/.local/bin:$PATH"
