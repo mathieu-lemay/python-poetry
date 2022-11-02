@@ -21,3 +21,4 @@ For python 2.7, 3.5 or 3.6, you can still use poetry 1.1.15 with the following t
 
 Many thanks to [Etienne Napoleone](https://github.com/etienne-napoleone) who originally created this repository
 and to [Jon Atkinson](https://github.com/jonatkinson) who maintained it.
+
