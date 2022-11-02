@@ -2,22 +2,31 @@
 
 set -eu
 
-VERSION="${1:?}"
-LATEST="3.10"
+PYTHON_VERSION="${1:?}"
+LATEST="3.11"
 POETRY_VERSION="1.2.2"
 
 shift
 
-build_options=("--platform" "linux/amd64,linux/arm64" "$@")
+variants=("" "slim" "alpine")
+build_options=(
+    "--platform"
+    "linux/amd64,linux/arm64"
+    "--build-arg"
+    "PYTHON_VERSION=${PYTHON_VERSION}"
+    "--build-arg"
+    "POETRY_VERSION=${POETRY_VERSION}"
+    "$@"
+)
 
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}" -f "${VERSION}/Dockerfile" .
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-slim" -f "${VERSION}/slim/Dockerfile" .
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-alpine" -f "${VERSION}/alpine/Dockerfile" .
+for variant in "${variants[@]}"; do
+    tag="acidrain/python-poetry:${PYTHON_VERSION}${variant:+-${variant}}"
+    dockerfile="Dockerfile${variant:+.${variant}}"
 
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-${POETRY_VERSION}" -f "${VERSION}/Dockerfile" .
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-slim-${POETRY_VERSION}" -f "${VERSION}/slim/Dockerfile" .
-docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:${VERSION}-alpine-${POETRY_VERSION}" -f "${VERSION}/alpine/Dockerfile" .
+    docker buildx build "${build_options[@]}" -t "${tag}" -f "${dockerfile}" .
+    docker buildx build "${build_options[@]}" -t "${tag}-${POETRY_VERSION}" -f "${dockerfile}" .
+done
 
-if [[ "${VERSION}" == "${LATEST}" ]]; then
-    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:latest" -f "${LATEST}/Dockerfile" .
+if [[ "${PYTHON_VERSION}" == "${LATEST}" ]]; then
+    docker buildx build "${build_options[@]}" -t "acidrain/python-poetry:latest" -f "Dockerfile" .
 fi
