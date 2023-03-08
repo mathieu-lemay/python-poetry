@@ -19,7 +19,7 @@ jobs:
 
       - name: Update poetry to latest version.
         run: |
-          VERSION="$(curl -f -s -H "Accept: application/json" "https://api.github.com/repos/python-poetry/poetry/releases/latest" | sed -n '/tag_name/p' | cut -d: -f2 | sed 's/[",[:space:]]//g')"
+          VERSION="$(curl -f -s -H "Accept: application/json" "https://api.github.com/repos/python-poetry/poetry/releases/latest" | jq -r '.tag_name')"
 
           printf 'POETRY_VERSION=%s\n' "$VERSION" >> $GITHUB_ENV
 
