@@ -26,8 +26,8 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message:
-            '[bot] Updated poetry for version ${{ env.POETRY_VERSION }}.'
-          title: '[bot] Updated poetry for version ${{ env.POETRY_VERSION }}.'
+            '[bot] Update poetry to version ${{ env.POETRY_VERSION }}.'
+          title: '[bot] Update poetry to version ${{ env.POETRY_VERSION }}.'
           body: |
             - Poetry updated for version ${{ env.POETRY_VERSION }}
 
