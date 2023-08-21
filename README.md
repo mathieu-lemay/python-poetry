@@ -8,7 +8,6 @@ The repository provides Python Docker images with `poetry` preinstalled. My moti
 
 ## Supported tags
 
-* [3.7](https://github.com/mathieu-lemay/python-poetry/blob/master/Dockerfile)
 * [3.8](https://github.com/mathieu-lemay/python-poetry/blob/master/Dockerfile)
 * [3.9](https://github.com/mathieu-lemay/python-poetry/blob/master/Dockerfile)
 * [3.10](https://github.com/mathieu-lemay/python-poetry/blob/master/Dockerfile)
@@ -17,6 +16,9 @@ The repository provides Python Docker images with `poetry` preinstalled. My moti
 ## Unsupported versions
 For python 2.7, 3.5 or 3.6, you can still use poetry 1.1.15 with the following tags:
 `acidrain/python-poetry:{version}{,-slim,-alpine}-1.1.15`
+
+For python 3.7, you can still use poetry 1.5.1 with the following tags:
+`acidrain/python-poetry:{version}{,-slim,-alpine}-1.5.1`
 
 ## Thanks
 
