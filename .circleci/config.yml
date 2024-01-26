@@ -1,31 +1,23 @@
 version: 2.1
 
-orbs:
-  aws-cli: circleci/aws-cli@4.0
-  aws-s3: circleci/aws-s3@4.0
-
 executors:
-  amd64: &executor
+  default:
     environment:
       BUILDKIT_PROGRESS: plain
       DOCKER_BUILDKIT: 1
     machine:
       image: ubuntu-2204:2023.10.1
     docker_layer_caching: true
-    resource_class: medium
-
-  arm64:
-    <<: *executor
-    resource_class: arm.medium
 
 jobs:
   build-docker-image:
     parameters:
-      arch:
-        type: executor
+      resource_class:
+        type: string
       python-version:
         type: string
-    executor: << parameters.arch >>
+    executor: default
+    resource_class: << parameters.resource_class >>
     steps:
       - checkout
       - run: ./scripts/build.sh << parameters.python-version >>
