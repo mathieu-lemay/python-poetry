@@ -1,0 +1,62 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@4.0
+  aws-s3: circleci/aws-s3@4.0
+
+executors:
+  amd64: &executor
+    environment:
+      BUILDKIT_PROGRESS: plain
+      DOCKER_BUILDKIT: 1
+    machine:
+      image: ubuntu-2204:2023.10.1
+    docker_layer_caching: true
+    resource_class: medium
+
+  arm64:
+    <<: *executor
+    resource_class: arm.medium
+
+jobs:
+  build-docker-image:
+    parameters:
+      arch:
+        type: executor
+      python-version:
+        type: string
+    executor: << parameters.arch >>
+    steps:
+      - checkout
+      - run: ./scripts/build.sh << parameters.python-version >>
+
+  build-and-push-docker-image:
+    parameters:
+      arch:
+        type: executor
+      python-version:
+        type: string
+    executor: << parameters.arch >>
+    steps:
+      - checkout
+      - run: docker login -u "$DOCKER_USER" -p "${DOCKER_PASSWORD}"
+      - run: ./scripts/build.sh << parameters.python-version >> --push
+
+workflows:
+  ci:
+    jobs:
+      - build-docker-image:
+          when:
+            not:
+              equal: [ master, << pipeline.git.branch >> ]
+          matrix: &build-matrix
+            parameters:
+              arch: [amd64, arm64]
+              python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+
+      - build-and-push-docker-image:
+          when:
+            equal: [ master, << pipeline.git.branch >> ]
+          matrix: *build-matrix
+          context:
+            - docker-creds
