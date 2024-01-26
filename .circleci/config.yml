@@ -43,20 +43,24 @@ jobs:
       - run: ./scripts/build.sh << parameters.python-version >> --push
 
 workflows:
-  ci:
+  build-docker-image:
+    when:
+      not:
+        equal: [ master, << pipeline.git.branch >> ]
+
     jobs:
       - build-docker-image:
-          when:
-            not:
-              equal: [ master, << pipeline.git.branch >> ]
           matrix: &build-matrix
             parameters:
               arch: [amd64, arm64]
               python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
+  build-and-push-docker-image:
+    when:
+      equal: [ master, << pipeline.git.branch >> ]
+
+    jobs:
       - build-and-push-docker-image:
-          when:
-            equal: [ master, << pipeline.git.branch >> ]
           matrix: *build-matrix
           context:
             - docker-creds
