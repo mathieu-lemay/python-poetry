@@ -2,10 +2,10 @@ ARG PYTHON_VERSION
 
 FROM python:${PYTHON_VERSION}
 
-LABEL maintainer "Mathieu Lemay <acidrain1@gmail.com>"
+LABEL maintainer="Mathieu Lemay <acidrain1@gmail.com>"
 
 ARG POETRY_VERSION
-ENV POETRY_VERSION ${POETRY_VERSION}
+ENV POETRY_VERSION=${POETRY_VERSION}
 
 RUN set -eu; \
     curl -sSL https://install.python-poetry.org \
