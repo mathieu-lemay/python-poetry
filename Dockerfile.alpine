@@ -11,6 +11,7 @@ RUN set -eu; \
     apk add --no-cache --virtual .deps curl gcc musl-dev libffi-dev; \
     curl -sSL https://install.python-poetry.org \
         | python - --version "${POETRY_VERSION}"; \
+    rm -rf ~/.cache; \
     apk del --no-cache .deps;
 
 ENV PATH="/root/.local/bin:$PATH"

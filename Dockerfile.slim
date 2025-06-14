@@ -15,6 +15,7 @@ RUN set -eu; \
     curl -sSL https://install.python-poetry.org \
         | python - --version "${POETRY_VERSION}"; \
     \
+    rm -rf ~/.cache; \
     apt-mark auto '.*' > /dev/null; \
     [ -z "${savedAptMark}" ] || apt-mark manual ${savedAptMark}; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
