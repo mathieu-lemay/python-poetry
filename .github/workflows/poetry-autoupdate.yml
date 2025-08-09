@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install jq
         run: |
@@ -28,13 +28,13 @@ jobs:
           fi
 
       - name: Open PR
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v7
         with:
           commit-message:
             '[bot] Update poetry to version ${{ env.POETRY_VERSION }}.'
           title: '[bot] Update poetry to version ${{ env.POETRY_VERSION }}.'
           body: |
-            - Poetry updated for version ${{ env.POETRY_VERSION }}
+            - Poetry updated to version ${{ env.POETRY_VERSION }}
 
             Changelog: https://github.com/python-poetry/poetry/releases/tag/${{ env.POETRY_VERSION }}
 
