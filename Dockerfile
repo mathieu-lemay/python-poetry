@@ -9,7 +9,7 @@ ENV POETRY_VERSION=${POETRY_VERSION}
 
 RUN set -eu; \
     curl -sSL https://install.python-poetry.org \
-        | python - --version "${POETRY_VERSION}"; \
+        | POETRY_HOME=/opt/poetry python - --version "${POETRY_VERSION}"; \
     rm -rf ~/.cache;
 
-ENV PATH="/root/.local/bin:$PATH"
+ENV PATH="/opt/poetry/bin:$PATH"

@@ -2,7 +2,7 @@
 
 set -eu
 
-PYTHON_VERSION="${1:?}"
+PYTHON_VERSION="${1:?Python version not set}"
 LATEST="3.15"
 POETRY_VERSION="2.5.2"
 
