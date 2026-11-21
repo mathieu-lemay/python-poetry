@@ -8,11 +8,11 @@ The repository provides Python Docker images with `poetry` preinstalled. My moti
 
 ## Supported tags
 
-* [3.10](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
 * [3.11](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
 * [3.12](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
 * [3.13](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
-* [3.14, latest](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
+* [3.14](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
+* [3.15, latest](https://github.com/mathieu-lemay/python-poetry/blob/main/Dockerfile)
 
 ## Unsupported versions
 For python 2.7, 3.5 or 3.6, you can still use poetry 1.1.15 with the following tags:
@@ -26,6 +26,9 @@ For python 3.8, you can still use poetry 1.8.3 with the following tags:
 
 For python 3.9, you can still use poetry 2.2.1 with the following tags:
 `acidrain/python-poetry:3.9{,-slim,-alpine}-2.2.1`
+
+For python 3.10, you can still use poetry 2.5.2 with the following tags:
+`acidrain/python-poetry:3.10{,-slim,-alpine}-2.5.2`
 
 ## Thanks
 
