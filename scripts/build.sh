@@ -4,7 +4,7 @@ set -eu
 
 PYTHON_VERSION="${1:?}"
 LATEST="3.15"
-POETRY_VERSION="2.5.1"
+POETRY_VERSION="2.5.2"
 
 shift
 
