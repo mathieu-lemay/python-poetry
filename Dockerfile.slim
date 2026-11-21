@@ -13,7 +13,7 @@ RUN set -eu; \
     apt-get install -y --no-install-recommends curl git gcc libffi-dev libc6-dev; \
     \
     curl -sSL https://install.python-poetry.org \
-        | python - --version "${POETRY_VERSION}"; \
+        | POETRY_HOME=/opt/poetry python - --version "${POETRY_VERSION}"; \
     \
     rm -rf ~/.cache; \
     apt-mark auto '.*' > /dev/null; \
@@ -21,4 +21,4 @@ RUN set -eu; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*;
 
-ENV PATH="/root/.local/bin:$PATH"
+ENV PATH="/opt/poetry/bin:$PATH"
