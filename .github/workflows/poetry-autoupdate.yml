@@ -9,6 +9,13 @@ jobs:
   update-dep:
     runs-on: ubuntu-latest
     steps:
+      - name: Create App Token
+        id: app-token
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -43,3 +50,4 @@ jobs:
             [1]: https://github.com/peter-evans/create-pull-request
           branch: 'chore/update-poetry-to-${{ env.POETRY_VERSION }}'
           assignees: mathieu-lemay
+          token: ${{ steps.app-token.outputs.token }}
